@@ -33,51 +33,51 @@ def main():
         # Use timestamp as default message
         commit_message = f"Update {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
 
-    print("🚀 Starting git push automation...")
-    print(f"📝 Commit message: '{commit_message}'")
+    print("Starting git push automation...")
+    print(f"Commit message: '{commit_message}'")
 
     # Check if we're in a git repository
     if not os.path.exists('.git'):
-        print("❌ Error: Not in a git repository!")
+        print("Error: Not in a git repository!")
         sys.exit(1)
 
     # Step 1: Add all changes
-    print("\n📋 Step 1: Adding all changes...")
+    print("\nStep 1: Adding all changes...")
     success, output = run_git_command('git add .')
     if success:
-        print("✅ Changes added successfully")
+        print("Changes added successfully")
     else:
-        print(f"❌ Failed to add changes: {output}")
+        print(f"Failed to add changes: {output}")
         sys.exit(1)
 
     # Step 2: Check if there are changes to commit
     success, output = run_git_command('git diff --cached --quiet')
     if success:
-        print("ℹ️  No changes to commit")
+        print("No changes to commit")
         return
 
     # Step 3: Commit changes
-    print("\n💾 Step 2: Committing changes...")
+    print("\nStep 2: Committing changes...")
     commit_command = f'git commit -m "{commit_message}"'
     success, output = run_git_command(commit_command)
     if success:
-        print("✅ Changes committed successfully")
-        print(f"📊 {output.strip()}")
+        print("Changes committed successfully")
+        print(f"Output: {output.strip()}")
     else:
-        print(f"❌ Failed to commit changes: {output}")
+        print(f"Failed to commit changes: {output}")
         sys.exit(1)
 
     # Step 4: Push to remote
-    print("\n⬆️  Step 3: Pushing to remote...")
+    print("\nStep 3: Pushing to remote...")
     success, output = run_git_command('git push')
     if success:
-        print("✅ Changes pushed to remote successfully")
-        print(f"📊 {output.strip()}")
+        print("Changes pushed to remote successfully")
+        print(f"Output: {output.strip()}")
     else:
-        print(f"❌ Failed to push changes: {output}")
+        print(f"Failed to push changes: {output}")
         sys.exit(1)
 
-    print("\n🎉 Git push completed successfully!")
+    print("\nGit push completed successfully!")
 
 if __name__ == "__main__":
     main()
